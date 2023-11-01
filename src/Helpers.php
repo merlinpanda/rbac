@@ -1,6 +1,6 @@
 <?php
 
-namespace Yooconf\Rbac;
+namespace Merlinpanda\Rbac;
 
 class Helpers
 {

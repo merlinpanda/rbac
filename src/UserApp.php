@@ -1,6 +1,6 @@
 <?php
 
-namespace Yooconf\Rbac;
+namespace Merlinpanda\Rbac;
 
 use App\Models\App;
 use Illuminate\Support\Facades\DB;

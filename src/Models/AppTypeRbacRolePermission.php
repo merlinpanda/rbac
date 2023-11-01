@@ -1,6 +1,6 @@
 <?php
 
-namespace Yooconf\Rbac\Models;
+namespace Merlinpanda\Rbac\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
