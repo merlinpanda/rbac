@@ -1,6 +1,6 @@
 {
-    "name": "yooconf/rbac",
-    "description": "权限管理",
+    "name": "merlinpanda/rbac",
+    "description": "rbac",
     "type": "library",
     "license": "MIT",
     "autoload": {
