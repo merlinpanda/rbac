@@ -21,14 +21,6 @@ class CreateAppTypesTable extends Migration
             $table->timestamps();
         });
 
-        DB::table("app_types")->insert([
-            [
-                "title" => "acss"
-            ],
-            [
-                "title" => "conference"
-            ],
-        ]);
     }
 
     /**

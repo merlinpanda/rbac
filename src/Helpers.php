@@ -12,7 +12,7 @@ class Helpers
 
         if (($weight & ($weight - 1)) == 0) {
             // 是2的幂次方
-            return $data + [ $weight ];
+            return array_merge($data, [ $weight ]);
         } else {
             $_2_power = (( $weight >> ($move - 1) ) & 1) << ($move - 1);
             if ($_2_power > 0) {

@@ -29,50 +29,6 @@ class CreateAppTypeProjectsTable extends Migration
 
             $table->unique(['app_type_id', 'name'], 'app_type_project');
         });
-
-        DB::table("app_type_projects")->insert([
-            [
-                "app_type_id" => 1,
-                "name" => "conference.manage",
-                "title" => "Conference Manage",
-                "status" => "DEV",
-                "version" => "1.0.0",
-                "version_number" => 10000,
-            ],
-            [
-                "app_type_id" => 2,
-                "name" => "finance",
-                "title" => "Conference Finance",
-                "status" => "DEV",
-                "version" => "1.0.0",
-                "version_number" => 10000,
-            ],
-            [
-                "app_type_id" => 2,
-                "name" => "submission",
-                "title" => "Call For Paper",
-                "status" => "DEV",
-                "version" => "1.0.0",
-                "version_number" => 10000,
-            ],
-            [
-                "app_type_id" => 2,
-                "name" => "contribution",
-                "title" => "Contribution",
-                "status" => "DEV",
-                "version" => "1.0.0",
-                "version_number" => 10000,
-            ],
-            [
-                "app_type_id" => 2,
-                "name" => "hotel",
-                "title" => "Hotel",
-                "status" => "DEV",
-                "version" => "1.0.0",
-                "version_number" => 10000,
-            ]
-        ]);
-
     }
 
     /**
