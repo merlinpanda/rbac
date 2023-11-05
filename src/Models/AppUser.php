@@ -10,6 +10,11 @@ class AppUser extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "user_id",
+        "status"
+    ];
+
     const STATUS_NORMAL = "NORMAL";
 
     public function app()

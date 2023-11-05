@@ -14,12 +14,12 @@ class AppRole
      * @param string $app_key
      * @return int
      */
-    public function get(User $user,string $app_key): int
+    public function get(int $user_id,string $app_key): int
     {
-        $cache_key = $this->cacheKey($user->id, $app_key);
+        $cache_key = $this->cacheKey($user_id, $app_key);
         $role = $this->getRoleFromCache($cache_key);
         if (blank($role)) {
-            $role = $this->getRoleFromDB($user->id, $app_key);
+            $role = $this->getRoleFromDB($user_id, $app_key);
 
             Cache::forever($cache_key, $role);
         }
