@@ -5,11 +5,29 @@ namespace Merlinpanda\Rbac\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Merlinpanda\Rbac\Actions\Role\RoutePermissionCheck;
+use Merlinpanda\Rbac\Actions\User\AppRole;
 use Merlinpanda\Rbac\Exceptions\AccessDeniedException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Merlinpanda\Rbac\Models\App;
 
 class RbacRoleCheck
 {
+    /**
+     * @var RoutePermissionCheck
+     */
+    protected $checker;
+
+    /**
+     * @var AppRole
+     */
+    protected $appRole;
+
+    public function __construct(RoutePermissionCheck $checker, AppRole $appRole)
+    {
+        $this->checker = $checker;
+        $this->appRole = $appRole;
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -19,11 +37,26 @@ class RbacRoleCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        $uid = $request->user("api")->id;
+        $uid = $request->user("api")->payload()->get('uid');
         $app_key = $request->header("App-Key");
         $route_name = Route::currentRouteName();
 
-        if (blank($uid) || blank($app_key)) {
+        if (blank($uid) || blank($app_key) || blank($route_name)) {
+            throw new AccessDeniedException("Bad Request");
+        }
+
+        try{
+            $app = App::where([
+                'app_key' => $app_key,
+                'status' => "NORMAL",
+            ])->firstOrFail();
+        }catch (\Exception $e) {
+            throw new AccessDeniedException("Bad Request");
+        }
+
+        $role = $this->appRole->get($uid,$app_key);
+        $has_permission = $this->checker->handle($role,$app,$route_name);
+        if (!$has_permission) {
             throw new AccessDeniedException();
         }
 

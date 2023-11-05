@@ -20,16 +20,26 @@ class App extends Model
         return $this->belongsTo(AppType::class);
     }
 
+    public function projects()
+    {
+        return $this->hasMany(AppProject::class);
+    }
+
     public function enableProjects()
     {
-        return $this->hasMany(AppProject::class)->where([
+        return $this->projects()->where([
             "app_id" => $this->id,
-            "enabled" => true,
-        ])->whereDate("expired_at", "<", Carbon::now());
+            "enable" => true,
+        ])->whereDate("expired_at", ">", Carbon::now());
     }
 
     public function target()
     {
         return $this->morphTo();
+    }
+
+    public function roles()
+    {
+        return $this->hasManyThrough(AppTypeRbacRole::class, AppType::class);
     }
 }

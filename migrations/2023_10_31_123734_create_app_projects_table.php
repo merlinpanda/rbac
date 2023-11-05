@@ -18,8 +18,7 @@ class CreateAppProjectsTable extends Migration
             $table->foreignId("app_id")->constrained();
             $table->foreignId("app_type_project_id")->constrained();
             $table->boolean("enable")->default(false);
-            $table->timestamp("expired_at")->nullable()->default(null);
-
+            $table->dateTime("expired_at")->nullable()->default(null);
             $table->softDeletes();
             $table->timestamps();
         });
