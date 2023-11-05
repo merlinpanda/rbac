@@ -19,7 +19,6 @@ class CreateAppUsersTable extends Migration
             $table->foreignId("user_id")->constrained();
             $table->integer("role_value")->unsigned()->default(0);
             $table->enum("status", ['NORMAL', 'DISABLED'])->default("NORMAL");
-
             $table->softDeletes();
             $table->timestamps();
 

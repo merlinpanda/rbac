@@ -10,6 +10,8 @@ class AppUser extends Model
 {
     use HasFactory;
 
+    const STATUS_NORMAL = "NORMAL";
+
     public function app()
     {
         return $this->belongsTo(App::class);

@@ -10,7 +10,12 @@ class App extends Model
 {
     use HasFactory;
 
-    public function appType()
+    public function app_users()
+    {
+        return $this->hasMany(AppUser::class);
+    }
+
+    public function app_type()
     {
         return $this->belongsTo(AppType::class);
     }
