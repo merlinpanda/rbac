@@ -3,12 +3,11 @@
 namespace Merlinpanda\Rbac\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
+use Merlinpanda\Rbac\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Merlinpanda\Rbac\Actions\Role\RoutePermissionCheck;
 use Merlinpanda\Rbac\Actions\User\AppRole;
 use Merlinpanda\Rbac\Exceptions\AccessDeniedException;
-use Merlinpanda\Rbac\Models\App;
 
 class RbacRoleCheck
 {
@@ -31,13 +30,14 @@ class RbacRoleCheck
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param Closure $next
+     * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
         $uid = $request->user()->payload()->get('uid');
+
         $app_key = $request->header("App-Key");
         $route_name = Route::currentRouteName();
 
@@ -45,17 +45,8 @@ class RbacRoleCheck
             throw new AccessDeniedException("No Access");
         }
 
-        try{
-            $app = App::where([
-                'app_key' => $app_key,
-                'status' => "NORMAL",
-            ])->firstOrFail();
-        }catch (\Exception $e) {
-            throw new AccessDeniedException("No Access");
-        }
-
-        $role = $this->appRole->get($uid,$app_key);
-        $has_permission = $this->checker->handle($role,$app,$route_name);
+        $role = $this->appRole->get($uid, $app_key);
+        $has_permission = $this->checker->handle($role, $request->app(), $route_name);
         if (!$has_permission) {
             throw new AccessDeniedException();
         }
