@@ -10,6 +10,10 @@ class AppType extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "title"
+    ];
+
     public function apps()
     {
         return $this->hasMany(App::class);

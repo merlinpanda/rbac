@@ -29,7 +29,7 @@ class Helpers
      * 判断路由是否在某些路由规则中
      *
      * @param $route_name
-     * @param array $pattern
+     * @param array $routes
      * @return bool
      */
     public static function routeIn($route_name, array $routes = []): bool
@@ -64,4 +64,5 @@ class Helpers
 
         return sprintf("/%s/", $string);
     }
+
 }

@@ -31,5 +31,10 @@
                 "Merlinpanda\\Rbac\\RbacServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "@php artisan jwt:secret"
+        ]
     }
 }

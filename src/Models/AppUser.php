@@ -12,6 +12,8 @@ class AppUser extends Model
 
     protected $fillable = [
         "user_id",
+        "app_id",
+        "role_value",
         "status"
     ];
 

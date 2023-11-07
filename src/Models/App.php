@@ -10,6 +10,14 @@ class App extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "app_type_id", "app_key", "app_secret", "pid", "status"
+    ];
+
+    protected $hidden = [
+        "app_secret"
+    ];
+
     public function app_users()
     {
         return $this->hasMany(AppUser::class);

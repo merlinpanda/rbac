@@ -9,6 +9,10 @@ class AppTypeProject extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        "app_type_id", "name", "title", "status", "version", "version_number"
+    ];
+
     public function menus()
     {
         return $this->hasMany(AppTypeProjectMenu::class);

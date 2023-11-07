@@ -37,12 +37,12 @@ class RbacRoleCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        $uid = $request->user("api")->payload()->get('uid');
+        $uid = $request->user()->payload()->get('uid');
         $app_key = $request->header("App-Key");
         $route_name = Route::currentRouteName();
 
         if (blank($uid) || blank($app_key) || blank($route_name)) {
-            throw new AccessDeniedException("Bad Request");
+            throw new AccessDeniedException("No Access");
         }
 
         try{
@@ -51,7 +51,7 @@ class RbacRoleCheck
                 'status' => "NORMAL",
             ])->firstOrFail();
         }catch (\Exception $e) {
-            throw new AccessDeniedException("Bad Request");
+            throw new AccessDeniedException("No Access");
         }
 
         $role = $this->appRole->get($uid,$app_key);

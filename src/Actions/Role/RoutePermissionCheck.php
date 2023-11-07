@@ -2,7 +2,6 @@
 
 namespace Merlinpanda\Rbac\Actions\Role;
 
-use Illuminate\Support\Facades\DB;
 use Merlinpanda\Rbac\Actions\AppType\AppTypeRolePermission;
 use Merlinpanda\Rbac\Helpers;
 use Merlinpanda\Rbac\Models\App;
