@@ -45,17 +45,8 @@ class RbacRoleCheck
             throw new AccessDeniedException("No Access");
         }
 
-        try{
-            $app = App::where([
-                'app_key' => $app_key,
-                'status' => "NORMAL",
-            ])->firstOrFail();
-        }catch (\Exception $e) {
-            throw new AccessDeniedException("No Access");
-        }
-
         $role = $this->appRole->get($uid,$app_key);
-        $has_permission = $this->checker->handle($role,$app,$route_name);
+        $has_permission = $this->checker->handle($role,$request->app(),$route_name);
         if (!$has_permission) {
             throw new AccessDeniedException();
         }

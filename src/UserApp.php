@@ -2,7 +2,7 @@
 
 namespace Merlinpanda\Rbac;
 
-use App\Models\App;
+use Merlinpanda\Rbac\Models\App;
 use Illuminate\Support\Facades\DB;
 
 class UserApp
